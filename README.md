@@ -9,9 +9,9 @@ displayed through the client.
 The game state is represented as a json 'game' object according to
 the following scheme:
 
-```json
+```
 models = {
-    'game' : {
+        'game' : {
         Required('_id'): basestring,
         ...
     },
