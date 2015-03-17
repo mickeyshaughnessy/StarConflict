@@ -19,11 +19,11 @@ models = {
 }
 ```
 
-A game object contains the following fields:
+A game object contains many fields:
 ``` 
 game._id
-player1_id
-player2_id
+player1
+player2
 p1_board
 p1_hand
 p1_deck
@@ -32,7 +32,6 @@ p2_board
 p2_hand
 p2_deck
 p2_discard
-stats
 ```
 
 After each player action, the game state is updated on the server
@@ -43,18 +42,12 @@ player action.
 The entire Star Conflict consists of a single game database interacting with
 clients and updating game state according to rules. 
 
-
-
-
-
-
-
-
-
+Command Line Client
+-------
 
 Future versions will include Android client, iOS client, 
 and OSX versions. 
 
-Users interact with the program by typing commands.
+Users interact with the game by typing commands.
 
 
