@@ -17,14 +17,9 @@ server_endpoint = 'http://localhost:8080'
         # a. Take an action
         # b. End turn
 
-
-
-
-
-
 response = session.get(
         server_endpoint,
-        data=dumps(1)
+        data=dumps({'message': 'hello'})
     )
 
 print response.content
