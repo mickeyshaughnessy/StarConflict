@@ -11,6 +11,27 @@ log_format_string = (
     ': %(message)s'
 )
 
+def dispatch(environ, g, route_info):
+    method = environ['REQUEST_METHOD']
+    route_string = environ['PATH_INFO']
+    args = '404 Not Found'
+    for name, (methods, pattern) in route_info['routes'].iteritems():
+        if method in methods:
+            match = re.findall(pattern, route_string)
+            if match:
+                try:
+                    args = route_info[name](environ, g, match[0])
+                except:
+                    logging.exception('Unhandled exception at dispatcher.')
+                    logging.debug(environ)
+                    args = '500 Internal Server Error'
+                break
+    i = hasattr(args, '__iter__')
+    status = args[0] if i else args
+    output = args[1] if len(args) > 1 and i else ''
+    headers = args[2] if len(args) > 2 and i else []
+    return status, output, headers
+
 def init_logging(log_level, send_to_db=True, db_level='warning'):
     logger = logging.getLogger()
     level=getattr(logging, log_level.upper())

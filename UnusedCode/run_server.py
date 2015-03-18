@@ -6,11 +6,13 @@ import logging
 import redis
 import routes
 from util import dispatch, init_logging
+from gevent import pywsgi
 
 def run_server(**kwargs):
     g = {
             'redis': redis.StrictRedis(host=kwargs['redis'])
         }
+
     def handler(environ, start_response):
         status, output, headers = dispatch(environ, g, routes.__dict__)
         if output and not any(k.lower() == 'content-type' for k, v in headers):
@@ -20,6 +22,7 @@ def run_server(**kwargs):
 
     log = 'default' if logging.getLogger().getEffectiveLevel() \
             == logging.DEBUG else None
+
     server = pywsgi.WSGIServer(
             (kwargs['hostname'], kwargs['port']), handler, log=log
         ).serve_forever()
