@@ -100,9 +100,11 @@ The game on the server is divided into three main components.
 The first is the game state, `g`. This state stores all the dynamic properties
 of the game as it progresses, such as player prestige, attack and defense as 
 well as cards in hands, decks, discards, and in play, and counters on cards in
-play. 
+play. Game states are stored in the server Redis after updates.
 The second component are the cards themselves. Static card data is stored in 
 class definitions, ie each named card in the game is a class with methods and
 attributes, including location, text, attack/defense, resource required/generated 
 and enters_play, leaves_play, activate, and start_turn effects. Named cards are
-subclasses of the generic Card class
+subclasses of the generic Card class.
+The final component is the static game logic embedded in the validator and update
+functions.
