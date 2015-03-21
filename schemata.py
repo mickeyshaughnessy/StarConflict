@@ -2,6 +2,7 @@ models = {
     'game' : {
         Required('_id'): basestring,
         Required('player_ids'): [basestring],
+        Required('active'): int,
         Required('hands'): [basestring],
         Required('decks'): [basestring],
         Required('boards'): [basestring],
@@ -24,6 +25,6 @@ models = {
         'type': basestring,
         'defense': basestring,
         'into_play_function': basestring, 
-        'in_play_function': 
-        'discard_function':
+        'in_play_': basestring, 
+        'discard_function': basestring
 }
