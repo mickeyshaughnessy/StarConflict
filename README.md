@@ -49,6 +49,7 @@ Future versions will include Android client, iOS client,
 and OSX versions. 
 
 Users interact with the game by typing commands.
+The game state is represented by strings printed to stdout.
 
 Game Server
 -------------
@@ -82,8 +83,8 @@ is active and that the opposing player has no blockers in play.
 Given the validated event, `attack player2`, the update function applies the 
 game logic to update the game state. In this case, the `p1.attack(g, p2)` is
 called, which triggers any effects when player1 attacks player2, decreases 
-player2's prestige by player1's current attack, and sets player1's attack
-to zero.
+player2's prestige by player1's current attack, and sets player1's attack to zero.
+
 -------
 As another example, player2 may send a request to begin turn. The validator
 checks that the game state has player1 ending his turn. The update function
