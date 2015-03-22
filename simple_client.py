@@ -42,7 +42,11 @@ if __name__ == '__main__':
     except:
         g = make_new_user()
    
-    print g
+    # Get user game data
+    try:
+        g['games'] = get_game_data(g)
+
+
     # On launch the client:
     # 1. Gets user data from the ._user file (local operation)
         # a. If no user account is present, make a user account (POST)

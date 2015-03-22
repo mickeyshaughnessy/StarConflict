@@ -1,4 +1,6 @@
 # This class defines the platform wide user objects
+# Its init method is called when a new user is generated.
+
 import redis
 from json import dumps, loads
 from config import redis_hostname, redis_port
@@ -8,23 +10,35 @@ class SC_User():
     def __init__(self, username=None):
         self.username = username
         
-        new_user = not bool(redis.get(self.username))
+        new_user = not bool(redis.get('user:'+self.username))
         
         if new_user:
             self.collection = self.default_collection()
-            user = {
+            self.wins = 0
+            self.losses = 0
+            self.update_redis()
+        else:
+            user = loads(redis.get('user:'+self.username))
+            self.collection = user['collection']
+            self.wins = user['wins']
+            self.losses = user['losses']
+
+    def add_to_collection(self, cardname, number):
+        if cardname in self.collection:
+            self.collection[cardname] += number
+        else:
+            self.collection[cardname] = number
+        self.update_redis() 
+
+    def update_redis(self):
+        user = {
                 'username': self.username,
                 'collection': self.collection,
-                'wins': 0,
-                'losses': 0
+                'wins': self.wins,
+                'losses': self.losses
             }
-            redis.set(self.username, user)
-        else:
-            user = loads(redis.get(self.username))
-            print user
-            self.collection = user['collection']
-            
-        
+        redis.set('user:'+self.username, dumps(user))
+
     def default_collection(self):
         return {'Drone Orbital Defenders': 4}
 
@@ -32,3 +46,5 @@ if __name__ == '__main__':
     Mickey = SC_User('mickey')
     print Mickey.collection
     print Mickey.default_collection()
+    print Mickey.collection['Drone Orbital Defenders']
+    print type(loads(redis.get('user:mickey')))

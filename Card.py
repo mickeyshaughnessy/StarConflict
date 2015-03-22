@@ -1,35 +1,38 @@
-import redis
-from json import dumps, loads
-from config import redis_hostname, redis_port
-redis = redis.StrictRedis(host=redis_hostname)
+#import redis
+#from json import dumps, loads
+#from config import redis_hostname, redis_port
+#redis = redis.StrictRedis(host=redis_hostname)
 
 class Card():
-    def __init__(self, cardname=None):
-        self.cardname = cardname
-        self.data = loads(redis.get(self.cardname))
-        if self.data['type'] in ['ship', 'troop', 'character']:
-            self.attack = self.data['attack']
-            self.defense = self.data['defense']
+    # a card is usually init'd once, at the beginning of a game
 
+    def __init__(self, cardname=None):
+        # cardname is a string pointing to a card in the 'Cards' directory
+        self.name = cardname
+        self.attack, self.defense, self.population = 0,0,0
+        self.resource_req = 0
+        self.resource_gen = 0
+        self.text = ''
+        self.location = ''
+        self.type = ''
+    
     def enters_play(self, g):
-        print self.data['enters_play']
+        pass
     def turn_start(self, g):
-        for event in self.data.events.turn_start:
-            event()
-    def activate(self, g, target):
-        self.data.events 
+        pass
+    def activate(self, g):
+        pass
+    def generated_resource(self,g):
+        pass
     def leaves_play(self, g):
-        for event in self.data['enters_play']:
-            print event
-    def change_attack(self, g, attack):
-        self.attack += attack
-    def change_defense(self, g, defense):
-        self.defense += defense
+        pass
+    def add_counter(self, g):
+        pass
         if self.defense < 1:
             self.die(self, g)
     def die(self, g):
         self.leaves_play(self, g)
-        g['discard'][g['active']].add_card(self, g)
+        #modify g appropriately 
 
 
 if __name__ == '__main__':
