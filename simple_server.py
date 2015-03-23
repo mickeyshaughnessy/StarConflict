@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from gevent import pywsgi
 import redis
 import routes
@@ -15,24 +15,19 @@ def get_users():
     users = {}
     return dumps(users)
 
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    error = None
+    if request.method == 'POST':
+        if valid_login(request.form['username'],
+                       request.form['password']):
+            return log_the_user_in(request.form['username'])
+        else:
+            error = 'Invalid username/password'
+    # the code below is executed if the request method
+    # was GET or the credentials were invalid
+    return render_template('login.html', error=error)
+
 if __name__ == '__main__':
     app.run()
-
-#def handler(environ, start_response):
-##    g = {
-##        'redis': redis.StrictRedis(host=kwargs['redis'])
-##         }
-#    #status, output, headers = dispatch(environ, g, routes.__dict__)
-#    
-#    output = '<strong>Play Star Conflict!</strong>\n'
-#
-#    status = '200 OK'
-#    headers = [('Content-Type', 'text/html')]
-#    start_response(status, headers)
-#    return output
-#
-#
-#print 'Star Conflict server running...'
-#server = pywsgi.WSGIServer(
-#    ('', 8080), handler).serve_forever()
 

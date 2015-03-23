@@ -1,17 +1,31 @@
 models = {
     'game' : {
-        Required('_id'): basestring,
-        Required('player_ids'): [basestring],
-        Required('active'): int,
-        Required('hands'): [basestring],
-        Required('decks'): [basestring],
-        Required('boards'): [basestring],
-        Required('discards'): [basestring],
-        Required('technologies'): [basestring],
-        Required('authority'): [int],
-        Required('population'): [int],
-        Required('resources'): [int],
-        Required('attack'): [int],
+        '_id': basestring,
+        'pids': [basestring],
+        'active': basestring,,
+        'p1': {
+            'hand': [basestring],
+            'deck': [basestring],
+            'board': [basestring],
+            'discard': [basestring],
+            'prestige': int,
+            'population': int,
+            'resource': int,
+            'attack': int,
+            'defense': int
+        }
+        'p2': {
+            'hand': [basestring],
+            'deck': [basestring],
+            'board': [basestring],
+            'discard': [basestring],
+            'prestige': int,
+            'population': int,
+            'resource': int,
+            'attack': int,
+            'defense': int
+        }
+
     },
     'user': {
         Required('_id'): basestring,

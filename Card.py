@@ -1,25 +1,45 @@
-#import redis
-#from json import dumps, loads
-#from config import redis_hostname, redis_port
-#redis = redis.StrictRedis(host=redis_hostname)
+from util import *
 
 class Card():
-    # a card is usually init'd once, at the beginning of a game
+    # a card is init'd whenever its methods are needed. 
 
     def __init__(self, cardname=None):
         # cardname is a string pointing to a card in the 'Cards' directory
         self.name = cardname
-        self.attack, self.defense, self.population = 0,0,0
-        self.resource_req = 0
-        self.resource_gen = 0
+        (self.attack, self.defense, self.population, self.resource_req,
+         self.resource_gen)  = 0,0,0,0,0
         self.text = ''
-        self.location = ''
         self.type = ''
     
-    def enters_play(self, g):
+    def play(self, g, origin='hand'):
+        active, opponent = get_active(g)
+        g[active]['board'].append(self.name)
+        g[active][origin].remove(self.name)
+        self.enter_play(g, origin)   
+
+    def draw(self, g, origin='deck'):
+        active, opponent = get_active(g)
+        g[active]['deck'].remove(self.name)
+        g[active]['hand'].append(self.name)
+
+    def discard(self, g, origin='hand'):
+        active, opponent = get_active(g)
+        g[active][origin].remove(self.name)
+        g[active]['discard'].append(self.name)
+        if origin == 'board':
+            self.leave_play(g)
+   
+    def enter_play(self, g, origin='hand'):
+        pass
+    def leave_play(self, g):
         pass
     def turn_start(self, g):
+        # The code below is appropriate for the update logic, not the Card class
+        # active, opponent = get_active(g)
+        #       for card in g[active]['board']:
+        #           eval(card+'.turn_start()')           
         pass
+
     def activate(self, g):
         pass
     def generated_resource(self,g):
@@ -29,10 +49,7 @@ class Card():
     def add_counter(self, g):
         pass
         if self.defense < 1:
-            self.die(self, g)
-    def die(self, g):
-        self.leaves_play(self, g)
-        #modify g appropriately 
+            self.discard(self, g, )
 
 
 if __name__ == '__main__':

@@ -40,11 +40,29 @@ class SC_User():
         redis.set('user:'+self.username, dumps(user))
 
     def default_collection(self):
-        return {'Drone Orbital Defenders': 4}
+        return {'Drone_Orbital_Defenders':{
+                    'number': 4,
+                    'affiliation': 'Federation'
+                    },
+                'Gas_Planet':{
+                    'number': 2,
+                    'affiliation': 'Unaffiliated'
+                    },
+                'Artificial_Planet':{
+                    'number': 4,
+                    'affiliation': 'Unaffiliated'
+                    },
+                'Troll_Marauders':{
+                    'number': 2,
+                    'affiliation': 'Goblinoid'
+                    },
+                } 
 
 if __name__ == '__main__':
     Mickey = SC_User('mickey')
+    Matt = SC_User('matt')
     print Mickey.collection
     print Mickey.default_collection()
-    print Mickey.collection['Drone Orbital Defenders']
+    print Mickey.collection['Drone_Orbital_Defenders']
+    print Mickey.collection.keys()
     print type(loads(redis.get('user:mickey')))
