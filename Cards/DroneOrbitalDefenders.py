@@ -32,8 +32,6 @@ class DroneOrbitalDefenders(Card):
             origin = 'token'
             self.enter_play(g, origin)
         
-       
-
 # This section and below are used for testing this card
 if __name__ == '__main__':
     card = DroneOrbitalDefenders()

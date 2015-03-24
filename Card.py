@@ -34,7 +34,10 @@ class Card():
             self.leave_play(g)
    
     def enter_play(self, g, origin='hand'):
-        pass
+        active, opponent = get_active(g)
+        g[active][origin].remove(self.name)
+        g[active]['board'].append(self.name)
+
     def leave_play(self, g):
         pass
     def turn_start(self, g):
