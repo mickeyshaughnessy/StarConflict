@@ -6,33 +6,51 @@ each action the state of the game is updated
 on the remote server and the new game state is
 displayed through the client.
 
-The game state is represented as a JSON 'game' object according to
-the following scheme:
+The game state is represented as a JSON game object as a part of the following 
+schemata.
 
 ```
 models = {
-        'game' : {
-            '_id': basestring,
-        ...
-        },
-    ...
+    'game' : {
+        '_id': basestring,
+        'pids': [basestring],
+        'active': basestring,,
+        'p1': {
+            'hand': [basestring],
+            'deck': [basestring],
+            'board': [basestring],
+            'discard': [basestring],
+            'prestige': int,
+            'population': int,
+            'resource': int,
+            'attack': int,
+            'defense': int
+        }
+        'p2': {
+            'hand': [basestring],
+            'deck': [basestring],
+            'board': [basestring],
+            'discard': [basestring],
+            'prestige': int,
+            'population': int,
+            'resource': int,
+            'attack': int,
+            'defense': int
+        }
+
+    },
+    'user': {
+        Required('_id'): basestring,
+        Required('purchased'): [basestring],
+        Required('user_name'): basestring,
+        Required('win_loss_history'): [ basestring : basestring]
     }
+}
+
 ```
 
-A game object contains many fields:
-``` 
-game._id
-player1
-player2
-p1_board
-p1_hand
-p1_deck
-p1_discard
-p2_board
-p2_hand
-p2_deck
-p2_discard
-```
+The game objects are complete string representations of game states. These are
+stored in the server Redis with keys `'game:'+<_id>.
 
 After each player action, the game state is updated on the server
 and pushed to the clients. Clients will re-render the game state
