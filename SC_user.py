@@ -61,6 +61,8 @@ class SC_User():
 if __name__ == '__main__':
     Mickey = SC_User('mickey')
     Matt = SC_User('matt')
+    Gabe = SC_User('gabe')
+    Amit = SC_User('amit')
     print Mickey.collection
     print Mickey.default_collection()
     print Mickey.collection['Drone_Orbital_Defenders']

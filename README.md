@@ -51,9 +51,9 @@ models = {
 
 The game objects are complete string representations of game states. These are
 stored in the server Redis with keys `'game:'+<_id>` and are passed to clients.
-Game states are instantiated into a game - a group of Card objects - when the
-game state is to be updated. The card objects are destroyed when the game state
-is finished updating.
+Game states are instantiated into a game - a group of Card and Player objects - 
+when the game state is to be updated. The card objects are destroyed when the 
+game state is finished updating.
 
 A player action on the client is first validated and then pushed to the server
 to update. After the update the new game state is pushed to the clients.
@@ -122,7 +122,7 @@ sub-event modifies the game state, but only a single call to the update function
 
 Game Rules and Data Structures
 --------
-The game on the server is divided into three main components. 
+The game on the server is divided into three main components: 
 
 The first is the game state, `g`. This state stores all the dynamic properties
 of the game as it progresses, such as player prestige, attack and defense as 
