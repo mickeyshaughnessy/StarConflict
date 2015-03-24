@@ -44,6 +44,14 @@ class Card():
         #           eval(card+'.turn_start()')           
         pass
 
+    def in_play(self, g):
+        # called once for each card after a game is instantiated - not the same
+        # as enter_play
+        pass
+    def in_discard(self, g):
+        # called once for each card after a game is instantiated - not the same
+        # as leave_play
+        pass
     def activate(self, g):
         pass
     def generated_resource(self,g):

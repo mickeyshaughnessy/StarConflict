@@ -2,7 +2,7 @@ models = {
     'game' : {
         '_id': basestring,
         'pids': [basestring],
-        'active': basestring,,
+        'active': basestring,
         'p1': {
             'hand': [basestring],
             'deck': [basestring],
