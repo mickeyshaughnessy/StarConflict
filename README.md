@@ -50,15 +50,18 @@ models = {
 ```
 
 The game objects are complete string representations of game states. These are
-stored in the server Redis with keys `'game:'+<_id>.
+stored in the server Redis with keys `'game:'+<_id>` and are passed to clients.
+Game states are instantiated into a game - a group of Card objects - when the
+game state is to be updated. The card objects are destroyed when the game state
+is finished updating.
 
-After each player action, the game state is updated on the server
-and pushed to the clients. Clients will re-render the game state
-whenever it is pushed to them from the remote server or after a local
-player action.
+A player action on the client is first validated and then pushed to the server
+to update. After the update the new game state is pushed to the clients.
+Clients will re-render the game state whenever it is pushed to them from the 
+remote server or after a local player action.
 
 The entire Star Conflict platform consists of a single game server interacting with
-clients and updating game state according to rules. 
+clients and updating game state according to rules.
 
 Command Line Client
 -------
@@ -66,7 +69,7 @@ Command Line Client
 Future versions will include Android client, iOS client, 
 and OSX versions. 
 
-Users interact with the game by typing commands.
+Users interact with the command line client by typing commands.
 The game state is represented by strings printed to stdout.
 
 Game Server
@@ -83,9 +86,12 @@ to the game rules and current game state. A later version of the game will have
 the validator functionality on the game clients, so only valid events are sent 
 to the server.
 
-Valid events are then processed, triggering various functions that modify the
-game state. A final game state is then stored in Redis, pushed to the client,
-and the program waits for the next event.
+After a valid event is received, the update function instantiates the game -
+creates a Card/Player representation for each card or player in the game.
+
+Events are then processed, triggering various Card and Player methods that 
+modify the game state. A final game state is then stored in Redis, pushed to 
+the client, and the program waits for the next event.
 
 -------
 --------
@@ -93,7 +99,8 @@ As an example, player1 on his turn may submit a request to attack player2.
 This means he wants to apply his current attack total to decrease player2's 
 prestige. The event `attack player2` and the game state `g` are validated:
 
-```if g.active = p1 and len(x for x in g.board.p2 if x.is_blocker == True)``` 
+```if g['active'] == 'p1' and 
+len([x for x in g['p2]['board'] if Instantiate(x).is_blocker == True]) == 0``` 
 
 For an attack event request, the validator checks that the requesting player
 is active and that the opposing player has no blockers in play. 
