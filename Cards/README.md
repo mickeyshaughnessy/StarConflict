@@ -4,8 +4,8 @@ This directory contains all the specific card definitions and data, including
 their class attribute and method definitions, ie what they do. 
 
 The `DroneOrbitalDefenders.py` file can be used as a template for new additions.
-Note that a new class inherits all the methods attributes from the abstract Card
-class in the main directory. Specific cards overwrite these methods and
+Note that a new card inherits all the methods attributes from the abstract Card
+class located in the main directory. Specific cards overwrite these methods and
 attributes as needed.
 
 At the end of each card file, the lines following the 
