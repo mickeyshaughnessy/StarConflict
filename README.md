@@ -1,10 +1,10 @@
-Star Conflict API and client design 
+Star Conflict: A fantasy/sci-fi turned based online card game
 -------------
-Initial client is run on the command line.
 Players take turns performing actions - after 
 each action the state of the game is updated 
 on the remote server and the new game state is
 displayed through the client.
+Initial client is run on the command line.
 
 To do:
 --------
