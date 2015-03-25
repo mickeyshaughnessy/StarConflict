@@ -6,6 +6,34 @@ each action the state of the game is updated
 on the remote server and the new game state is
 displayed through the client.
 
+To do:
+--------
+* Build client to:
+  * communicate with server:
+    * GET users and games.
+    * POST to initiate games.
+    * POST moves to games.
+    * POST collection changes to users. 
+  * Render games from JSON game, g.
+  * Enable user to generate games, moves and collection changes.
+* Add to Cards files:
+  * Translate Google Sheets doc to card classes.
+* Make server talk to client (API using Flask).
+* Finalize core game functionality:
+  * Start_game.
+  * Instantiate Game from JSON game.
+  * Validate events.
+  * Update Game.
+  * Check win condition.
+  * Deinstantiate Game to JSON game.
+* Flesh out data infrastructure:
+  * Define SC_user objects.
+  * Define methods for updating user collections.
+
+
+Explantion of program structure:
+-------------------------------
+
 The game state is represented as a JSON game object as a part of the following 
 schemata.
 
