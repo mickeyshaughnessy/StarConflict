@@ -51,11 +51,15 @@ models = {
 
 The game objects are complete string representations of game states. These are
 stored in the server Redis with keys `'game:'+<_id>` and are passed to clients.
-Game states are instantiated into a game - a group of Card and Player objects - 
-when the game state is to be updated. The card objects are destroyed when the 
-game state is finished updating.
+When a change of state is initiated on the server:
 
-A player action on the client is first validated and then pushed to the server
+1. Game states are instantiated from the game state representation, g, into a game, G - a group of Card and Player objects. 
+2. The triggering event, `e`, is validated. 
+3. The game G is modified by the triggering event and the Player and Card methods.
+4. The final game state is deinstatiated into a new string representation, `g'`.
+
+
+A player action on the client is pushed to the server
 to update. After the update the new game state is pushed to the clients.
 Clients will re-render the game state whenever it is pushed to them from the 
 remote server or after a local player action.
@@ -86,27 +90,29 @@ to the game rules and current game state. A later version of the game will have
 the validator functionality on the game clients, so only valid events are sent 
 to the server.
 
-After a valid event is received, the update function instantiates the game -
-creates a Card/Player representation for each card or player in the game.
+The update function instantiates the game -
+creates a Card/Player representation (Game) for each card or player in the game.
 
 Events are then processed, triggering various Card and Player methods that 
-modify the game state. A final game state is then stored in Redis, pushed to 
+modify the Game. A new final game state (g') is then stored in Redis, pushed to 
 the client, and the program waits for the next event.
 
 -------
 --------
 As an example, player1 on his turn may submit a request to attack player2. 
 This means he wants to apply his current attack total to decrease player2's 
-prestige. The event `attack player2` and the game state `g` are validated:
+prestige. 
+The game state, `g`, is instantiated into a Game, `G`.
+The combined event `e = attack p2` and the Game are validated:
 
-```if g['active'] == 'p1' and 
-len([x for x in g['p2]['board'] if Instantiate(x).is_blocker == True]) == 0``` 
+```if G.active == 'p1' and 
+len([x for x in G.p2['board'] if x.is_blocker == True]) == 0``` 
 
 For an attack event request, the validator checks that the requesting player
 is active and that the opposing player has no blockers in play. 
 
-Given the validated event, `attack player2`, the update function applies the 
-game logic to update the game state. In this case, the `p1.attack(g, p2)` is
+Given the validated event, `attack p2`, the update function applies the 
+game logic to update the game state. In this case, the `p1.attack(p2)` is
 called, which triggers any effects when player1 attacks player2, decreases 
 player2's prestige by player1's current attack, and sets player1's attack to zero.
 
@@ -117,7 +123,7 @@ collects all the 'start of turn' events for each card in play on both boards,
 calls them in a random order, calls the increase population functions for each
 planet in play under the active player's control, resource is added to the pool
 and finally draws a card from the active player's deck to hand. Note that each 
-sub-event modifies the game state, but only a single call to the update function 
+sub-event modifies the Game, but only a single call to the update function 
 `U`, is made.
 
 Game Rules and Data Structures
