@@ -8,7 +8,7 @@ displayed through the client.
 
 To do:
 --------
-* Build client to:
+* __Build client to:__
   * communicate with server:
     * GET users and games.
     * POST to initiate games.
@@ -16,17 +16,17 @@ To do:
     * POST collection changes to users. 
   * Render games from JSON game, g.
   * Enable user to generate games, moves and collection changes.
-* Add to Cards files:
+* __Add to Cards files:__
   * Translate Google Sheets doc to card classes.
-* Make server talk to client (API using Flask).
-* Finalize core game functionality:
+* __Make server talk to client (API using Flask).__
+* __Finalize core game functionality:__
   * Start_game.
   * Instantiate Game from JSON game.
   * Validate events.
   * Update Game.
   * Check win condition.
   * Deinstantiate Game to JSON game.
-* Flesh out data infrastructure:
+* __Flesh out data infrastructure:__
   * Define SC_user objects.
   * Define methods for updating user collections.
 
