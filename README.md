@@ -43,6 +43,10 @@ models = {
         '_id': basestring,
         'pids': [basestring],
         'active': basestring,,
+        'artifacts_deck': [basestring],
+        'artifacts_purchase': [basestring],
+        'shared_deck': [basestring],
+        'shared_purchase': [basestring],
         'p1': {
             'hand': [basestring],
             'deck': [basestring],

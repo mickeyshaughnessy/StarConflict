@@ -47,20 +47,18 @@ def submit_event(game_id, event):
     response = session.post(server_endpoint+'games/'+game_id, data=dumps(event))
     return response.content
 
-# possible events:
 event_actions = [
-    'end_turn',
-    'attack',
-    'play_card',
-    'activate',
-    'purchase',
-    'concede',
-    'emit_taunt'
+    'end_turn', # end turn takes no other arguments
+    'attack',  # can attack opposing player, planets, and cards_in_plays
+    'play_card', # can play cards from hand
+    'activate', # can activate abilities of cards on own board and in own discard
+    'purchase', # can purchase artifacts or from shared purchase
+    'concede', # no arguments
+    'emit_taunt' # takes taunt string as argument
 ]
 event_target_types = [
     'player',
     'planet',
-    'blocker',
     'card_in_play',
     'card_in_discard'
 ]
