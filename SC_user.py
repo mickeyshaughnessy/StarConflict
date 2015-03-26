@@ -6,7 +6,7 @@ from json import dumps, loads
 from config import redis_hostname, redis_port
 redis = redis.StrictRedis(host=redis_hostname)
 
-class SC_User():
+class User():
     def __init__(self, username=None):
         self.username = username
         
@@ -59,10 +59,10 @@ class SC_User():
                 } 
 
 if __name__ == '__main__':
-    Mickey = SC_User('mickey')
-    Matt = SC_User('matt')
-    Gabe = SC_User('gabe')
-    Amit = SC_User('amit')
+    Mickey = User('mickey')
+    Matt = User('matt')
+    Gabe = User('gabe')
+    Amit = User('amit')
     print Mickey.collection
     print Mickey.default_collection()
     print Mickey.collection['Drone_Orbital_Defenders']
