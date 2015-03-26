@@ -12,7 +12,7 @@ events = [
     'attack'
 ]
 
-def update(e,g):
+def update(e,g):  # e and g are both type == dict 
     instantiate(g) 
-    
+    return g 
 

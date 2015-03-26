@@ -1,5 +1,5 @@
 import requests
-from json import dumps
+from json import dumps, loads
 import cPickle as pickle
 
 session = requests.Session()
@@ -22,13 +22,13 @@ server_endpoint = 'http://127.0.0.1:5000/'
 def start_new_game(g):
     pass
 
-def load_user():
+def load_user_data():
     return pickle.load(open("user.p", "rb"))
 
 def make_new_user(username=None):
     if not username:
         username = raw_input("Enter user name to make: ") 
-    response = session.post(server_endpoint+'users/'+username,)
+    response = session.post(server_endpoint+'users/'+username)
     pickle.dump(response.content, open("user.p", "wb"))
     return response.content
 
@@ -38,17 +38,55 @@ def get_user_data(username=None):
     response = session.get(server_endpoint+'users/'+username)
     return response.content
 
-if __name__ == '__main__':
-    u = get_user_data()
-    print ('New user: %s' % u)
-        
-    # Load user data
-    try:
-        g = load_user_data()
-    # If no user data, make a new user
-    except:
-        g = make_new_user()
+def get_game(game_id):
+    response = session.get(server_endpoint+'games/'+game_id)
+    return response.content
 
-    print g
+def submit_event(game_id, event):
+#response = session.post(server_endpoint+'games/'+game_id+'?event='+event)
+    response = session.post(server_endpoint+'games/'+game_id, data=dumps(event))
+    return response.content
+
+# possible events:
+event_actions = [
+    'end_turn',
+    'attack',
+    'play_card',
+    'activate',
+    'purchase',
+    'concede',
+    'emit_taunt'
+]
+event_target_types = [
+    'player',
+    'planet',
+    'blocker',
+    'card_in_play',
+    'card_in_discard'
+]
+
+if __name__ == '__main__':
+## GET an existing user
+#    u = get_user_data()
+#    print ('New user: %s' % u)
+        
+# load local user data, or if no user make a new user and store it locally
+#    try:
+#        g = load_user_data()
+#    # If no user data, make a new user
+#    except:
+#        g = make_new_user()
+#    print ('Current user is %s' % g)
+
+# GET existing game 
+    game = loads(get_game('865a74038e49976175d2100aae1fd0d39d8dda6f'))
+    print ('game is %s' % game)
+# POST an attack event to existing game
+    event1 = {'action': 'attack', 'target_type': 'player', 'target1': 'p1')
+    event2 = {'action': 'attack', 'target_type': 'player', 'target1': 'p2')
+    event3 = {'action': 'activate', 'target_type': 'card_in_play', 'target1': 'CardDestroyerCard', 'target2': 'DroneOrbitalDefenders')
+    event4 = {'action': 'emit_taunt', 'target1': 'Go jump in a lake!'} 
+    game = submit_event(game['_id'], event1)
+    print ('game is %s' % game)
 
 

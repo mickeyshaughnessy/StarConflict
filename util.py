@@ -6,9 +6,8 @@ def get_active(g):
     return (active, opponent)
 
 def instantiate_players(g):
-    p1 = Player('p1', g)
-    p2 = Player('p2', g)
-    return [p1, p2]
+    g['p1'] = Player('p1', g)
+    g['p2'] = Player('p2', g)
 
 def instantiate_location(g, loc):
     places = []
@@ -20,21 +19,31 @@ def instantiate_location(g, loc):
     
 
 def instantiate(g):
-    # returns an instantiated game - ie all Card and Player objects
+    # Transforms g into an instantiated game - ie all relevant values are Card and Player objects
     
-    players = instantiate_players(g)
-    
-    decks = instantiate_location(g, 'deck')
-    hands = instantiate_location(g, 'hand')
-    discards = instantiate_location(g, 'discard')
-    boards = instantiate_location(g, 'board')
+    instantiate_players(g)
+    instantiate_location(g, 'decks')
+    instantiate_location(g, 'hands')
+    instantiate_location(g, 'discards')
+    instantiate_location(g, 'boards')
+    instantiate_location(g, 'artifacts_deck')
+    instantiate_location(g, 'artifacts_purchase')
+    instantiate_location(g, 'shared_deck')
+    instantiate_location(g, 'shared_purchase')
 
+# call all in play methods
     for pindex in [0,1]:
-        for card in boards[pindex]:
+        for card in g[pindex]['board']:
             card.in_play()
         for card in discards[pindex]:
             card.in_discard()
 
-    return players, decks, hands, discards, boards
-
+# check for both players alive
+    winner = g['winner'] 
+    if not g['p2'].is_alive() and not g['p1'].is_alive():
+        winner = 'tie'
+    elif not g['p2'].is_alive():
+        winner = 'p1'
+    elif not g['p1'].is_alive():
+        winner = 'p2'
         
