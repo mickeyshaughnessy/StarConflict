@@ -18,7 +18,7 @@ To do:
   * [] Render games from JSON game, g.
   * [] Enable user to generate games, moves and collection changes.
 * __Add to Cards files:__
-  * [] Translate Google Sheets doc to card classes.
+  * [1/200] Translate Google Sheets doc to card classes.
 * __Make server talk to client (API using Flask).__
 * __Finalize core game functionality:__
   * [] Start_game.
