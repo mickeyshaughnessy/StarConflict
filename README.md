@@ -10,26 +10,26 @@ Initial client is run on the command line.
 To do:
 --------
 * __Build client to:__
-  * communicate with server:
-    * GET users and games.
-    * POST to initiate games.
-    * POST moves to games.
-    * POST collection changes to users. 
-  * Render games from JSON game, g.
-  * Enable user to generate games, moves and collection changes.
+  * [] communicate with server:
+    * [] GET users and games.
+    * [] POST to initiate games.
+    * [] POST moves to games.
+    * [] POST collection changes to users. 
+  * [] Render games from JSON game, g.
+  * [] Enable user to generate games, moves and collection changes.
 * __Add to Cards files:__
-  * Translate Google Sheets doc to card classes.
+  * [] Translate Google Sheets doc to card classes.
 * __Make server talk to client (API using Flask).__
 * __Finalize core game functionality:__
-  * Start_game.
-  * Instantiate Game from JSON game.
-  * Validate events.
-  * Update Game.
-  * Check win condition.
-  * Deinstantiate Game to JSON game.
+  * [] Start_game.
+  * [] Instantiate Game from JSON game.
+  * [] Validate events.
+  * [] Update Game.
+  * [] Check win condition.
+  * [] Deinstantiate Game to JSON game.
 * __Flesh out data infrastructure:__
-  * Define SC_user objects.
-  * Define methods for updating user collections.
+  * [] Define SC_user objects.
+  * [] Define methods for updating user collections.
 
 
 Explantion of program structure:
