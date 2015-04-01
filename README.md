@@ -6,6 +6,7 @@ on the remote server and the new game state is
 displayed through the client.
 Initial client is run on the command line.
 
+![Image of Orc Cruiser](https://github.com/mickeyshaughnessy/StarConflict/Images/Orc_Cruiser.jpg)
 To do:
 --------
 * __Build client to:__

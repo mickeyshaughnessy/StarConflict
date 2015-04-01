@@ -46,7 +46,7 @@ if __name__ == '__main__':
             'discard' : []
         },
         'p2': {
-            'prestige': 55
+            'prestige': 55,
             'attack': 0,
             'defense': 0,
             'population': 0,
@@ -57,6 +57,7 @@ if __name__ == '__main__':
             'discard' : []
         }
     }
+
     mickey = Player('p1', g)
     gabe = Player('p2', g)
 
