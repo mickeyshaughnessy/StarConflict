@@ -23,8 +23,7 @@ event_target_types = [
     'card_in_discard'
 ]
 
-
-def update(e,g):  # e and g are both type == dict 
+def update_game(e,g):  # e and g are both type == dict 
     instantiate(g) 
     return g 
 

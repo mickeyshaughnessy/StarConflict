@@ -6,7 +6,8 @@ redis = redis.StrictRedis(host=redis_hostname)
 class Player():
     # a player is init'd whenever its methods are needed. 
 
-    def __init__(self, player_num, g): 
+    def __init__(self, player_num, g):
+        print g
        # cardname is a string pointing to a card in the 'Cards' directory
         self.pid = g['pids'][0] if player_num == 'p1' else g['pids'][1] # username
         self.player_num = player_num    # 'p1' or 'p2'

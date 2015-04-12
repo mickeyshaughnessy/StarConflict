@@ -5,31 +5,37 @@ def get_active(g):
     opponent = 'p1' if active == 'p2' else 'p2'
     return (active, opponent)
 
-def instantiate_players(g):
-    g['p1'] = Player('p1', g)
-    g['p2'] = Player('p2', g)
+def instantiate_players(g, Game):
+    Game['p1'] = Player('p1', g)
+    Game['p2'] = Player('p2', g)
 
-def instantiate_location(g, loc):
+def instantiate_location(g, Game, loc):
     places = []
     for player in ['p1', 'p2']:
         place = []
         for card in g[player][loc]:
             place.append(eval(card+'()'))
         places.append(place)
-    
+    Game[loc] = places 
 
 def instantiate(g):
+    Game = {}
+    instantiate_players(g, Game)
+    for loc in ['decks', 'hands', 'discards', 'boards', 'artifacts_deck',
+                'artifacts_purchase', 'shared_deck', 'shared_purchase']:
+        instantiate_location(g, Game, loc)
+
+
     # Transforms g into an instantiated game - ie all relevant values are Card and Player objects
     
-    instantiate_players(g)
-    instantiate_location(g, 'decks')
-    instantiate_location(g, 'hands')
-    instantiate_location(g, 'discards')
-    instantiate_location(g, 'boards')
-    instantiate_location(g, 'artifacts_deck')
-    instantiate_location(g, 'artifacts_purchase')
-    instantiate_location(g, 'shared_deck')
-    instantiate_location(g, 'shared_purchase')
+#    instantiate_location(g, 'decks')
+#    instantiate_location(g, 'hands')
+#    instantiate_location(g, 'discards')
+#    instantiate_location(g, 'boards')
+#    instantiate_location(g, 'artifacts_deck')
+#    instantiate_location(g, 'artifacts_purchase')
+#    instantiate_location(g, 'shared_deck')
+#    instantiate_location(g, 'shared_purchase')
 
 # call all in play methods
     for pindex in [0,1]:

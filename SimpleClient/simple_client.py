@@ -80,9 +80,9 @@ if __name__ == '__main__':
     game = loads(get_game('865a74038e49976175d2100aae1fd0d39d8dda6f'))
     print ('game is %s' % game)
 # POST an attack event to existing game
-    event1 = {'action': 'attack', 'target_type': 'player', 'target1': 'p1')
-    event2 = {'action': 'attack', 'target_type': 'player', 'target1': 'p2')
-    event3 = {'action': 'activate', 'target_type': 'card_in_play', 'target1': 'CardDestroyerCard', 'target2': 'DroneOrbitalDefenders')
+    event1 = {'action': 'attack', 'target_type': 'player', 'target1': 'p1'}
+    event2 = {'action': 'attack', 'target_type': 'player', 'target1': 'p2'}
+    event3 = {'action': 'activate', 'target_type': 'card_in_play', 'target1': 'CardDestroyerCard', 'target2': 'DroneOrbitalDefenders'}
     event4 = {'action': 'emit_taunt', 'target1': 'Go jump in a lake!'} 
     game = submit_event(game['_id'], event1)
     print ('game is %s' % game)

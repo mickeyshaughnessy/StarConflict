@@ -1,3 +1,4 @@
+# This contains the API code
 from flask import Flask, request
 from gevent import pywsgi
 import redis
@@ -5,7 +6,7 @@ from time import sleep
 from config import *
 from json import loads, dumps
 from SC_user import User
-from update import update
+from update import update_game
 
 redis = redis.StrictRedis(host=redis_hostname)
 
@@ -24,7 +25,7 @@ def api_users(username):
         user = dumps(redis.get('user:'+username))
         if user == 'null': #if user not there, make it
             user = User(username)
-            sleep(0.1)  # To 
+            sleep(0.1)  # To let the user populate into the Redis. 
             user = redis.get('user:'+username) 
     return user
 

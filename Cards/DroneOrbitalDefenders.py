@@ -39,6 +39,10 @@ if __name__ == '__main__':
         '_id' : 'thisexamplegameid',
         'active' : 'p1',
         'pids': ['user:mickey', 'user:matt'],
+        'artifacts_deck': [],
+        'artifacts_purchase': [],
+        'shared_deck': [],
+        'shared_purchase': [],
         'p1':{
             'board' : [],
             'hand' : ['DroneOrbitalDefenders'],
