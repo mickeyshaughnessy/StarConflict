@@ -76,8 +76,9 @@ if __name__ == '__main__':
 #        g = make_new_user()
 #    print ('Current user is %s' % g)
 
-# GET existing game 
-    game = loads(get_game('865a74038e49976175d2100aae1fd0d39d8dda6f'))
+# GET existing game
+    # remove this comment
+    game = loads(get_game('d24106bfd8bba2fd3880faa8a7809b1f92ff5782'))
     print ('game is %s' % game)
 # POST an attack event to existing game
     event1 = {'action': 'attack', 'target_type': 'player', 'target1': 'p1'}

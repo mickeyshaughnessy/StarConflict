@@ -63,6 +63,7 @@ if __name__ == '__main__':
     Matt = User('matt')
     Gabe = User('gabe')
     Amit = User('amit')
+    print redis
     print Mickey.collection
     print Mickey.default_collection()
     print Mickey.collection['Drone_Orbital_Defenders']
